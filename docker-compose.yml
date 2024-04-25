@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      - s-network
+
+  postgres:
+    image: postgres
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=demo
+    networks:
+      - s-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+networks:
+  s-network:
+    driver: bridge
+volumes:
+  postgres_data:
